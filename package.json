@@ -1,12 +1,13 @@
 {
-  "name": "application-name",
+  "name": "TheHive",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.4.7",
-    "jade": "*"
+    "eventemitter": "*",
+    "emit": "*",
+    "pi-blaster.js": "*"
   }
 }
