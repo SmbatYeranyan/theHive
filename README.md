@@ -30,7 +30,6 @@ Our application creates a TCP server using Node and starts listening for incomin
 The data uses **JSON** protocol.
 Here is an example: 
 ```
-#!json
 {gyro:"-35.334231,23.3423553", controls: "takeOff", value: "extras"}
 
 ```
@@ -56,8 +55,6 @@ The engine logic uses a class called ***engines()*** to perform all of the motor
 **Take Off Example**
 
 ```
-#!javascript
-
   this.takeOff = function(value){
     allEngines(0.2);
     setTimeout(function(){
