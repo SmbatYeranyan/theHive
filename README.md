@@ -35,7 +35,7 @@ Here is an example:
 ```
 The Node TCP server receives the Data and determines the direction and angle from the gyro variables.
 
-### # Direction Logic: # ###
+### Direction Logic: ###
 Gyro variable from JSON is split by "," calling it Left and Right objects.
 Left object would be our -35.334231. The Right object would be our 23.3423553
 
