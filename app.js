@@ -35,5 +35,5 @@ tcp.server.on("data", function(data){
 });
 
 
-engineControl.engines.allEngines(0.01); 
+engineControl.engines.allEngines(0.001); 
 engineControl.engines.takeOff();
