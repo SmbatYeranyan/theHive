@@ -1,4 +1,10 @@
 function Controller() {
+    function dtest() {
+        x += 100;
+        $.dot.top = x + "dp";
+        console.log($.dot);
+        alert($.dot.top);
+    }
     function accel() {
         motor += 10;
         Ti.Stream.write(socket, Ti.createBuffer({
@@ -38,6 +44,14 @@ function Controller() {
         id: "index"
     });
     $.__views.index && $.addTopLevelView($.__views.index);
+    $.__views.xy = Ti.UI.createLabel({
+        width: Ti.UI.SIZE,
+        height: Ti.UI.SIZE,
+        color: "black",
+        top: "20dp",
+        id: "xy"
+    });
+    $.__views.index.add($.__views.xy);
     $.__views.label = Ti.UI.createButton({
         title: "Accelerate",
         id: "label"
@@ -63,8 +77,10 @@ function Controller() {
         id: "dot"
     });
     $.__views.index.add($.__views.dot);
+    dtest ? $.__views.dot.addEventListener("click", dtest) : __defers["$.__views.dot!click!dtest"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var x = 0;
     var motor = 0;
     $.index.open();
     Titanium.UI.createWindow({
@@ -72,17 +88,27 @@ function Controller() {
         backgroundColor: "#fff"
     });
     var lastTime = new Date().getTime();
-    var offset = 100;
+    var offset = 50;
     var filter = 1;
     var last_x = 0;
     var last_y = 0;
+    var dot = $.dot;
     Titanium.Accelerometer.addEventListener("update", function(e) {
         var now = new Date().getTime();
         if (now > lastTime + offset) {
             last_x = e.x * filter + last_x * (1 - filter);
             last_y = e.y * filter + last_y * (1 - filter);
+            $.xy.setText(5 * last_x + " - " + 5 * last_y);
+            dot.left = dot.left.toString().split("dp")[0] + 5 * last_x + "dp";
+            dot.top = dot.top.toString().split("dp")[0] + 5 * last_y + "dp";
             console.log(5 * last_x + " " + 5 * last_y);
             lastTime = now;
+            var pack = {
+                g: 5 * last_x + "," + 5 * last_y
+            };
+            Ti.Stream.write(socket, Ti.createBuffer({
+                value: JSON.stringify(pack)
+            }), writeCallback);
         }
     });
     Ti.Gesture.addEventListener("orientationchange", function() {
@@ -90,13 +116,18 @@ function Controller() {
         curAct.setRequestedOrientation(Ti.Android.SCREEN_ORIENTATION_PORTRAIT);
     });
     var socket = Ti.Network.Socket.createTCP({
-        host: "192.168.0.118",
-        port: 5e3,
+        host: "192.168.0.103",
+        port: 1234,
         connected: function(e) {
             Ti.API.info("Socket opened!");
             Ti.Stream.pump(e.socket, readCallback, 1024, true);
+            var pack = {
+                g: "0,0",
+                c: "",
+                value: ""
+            };
             Ti.Stream.write(socket, Ti.createBuffer({
-                value: "GET http://blog.example.com/index.html HTTP/1.1\r\n\r\n"
+                value: JSON.stringify(pack)
             }), writeCallback);
         },
         error: function(e) {
@@ -106,6 +137,7 @@ function Controller() {
     socket.connect();
     __defers["$.__views.label!click!accel"] && $.__views.label.addEventListener("click", accel);
     __defers["$.__views.label2!click!deccel"] && $.__views.label2.addEventListener("click", deccel);
+    __defers["$.__views.dot!click!dtest"] && $.__views.dot.addEventListener("click", dtest);
     _.extend($, exports);
 }
 

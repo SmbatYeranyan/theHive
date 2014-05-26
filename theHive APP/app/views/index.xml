@@ -1,7 +1,8 @@
 <Alloy>
 	<Window class="container">
+		<Label id="xy"></Label>
 		<Button id="label" onClick="accel">Accelerate</Button>
 		<Button id="label2" onClick="deccel">Deccelerate</Button>
-		<View id="dot"></View>
+		<View id="dot" onClick="dtest"></View>
 	</Window>
 </Alloy>

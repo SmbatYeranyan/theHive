@@ -5,6 +5,15 @@ function doClick(e) {
         }), writeCallback);
 }
 
+var x = 0;
+
+function dtest(e) {
+	x = x + 100;
+   $.dot.top = x +"dp";
+   console.log($.dot);
+   alert($.dot.top);
+
+}
 var motor =0;
 function accel(e){
 	motor += 10;
@@ -24,6 +33,7 @@ $.index.open();
 // setup your views etc..(or via Alloy) + other logic
 // .......
  //create window
+
 var win = Titanium.UI.createWindow({  
     title:'Accelerometer',
     backgroundColor:'#fff'
@@ -36,7 +46,7 @@ var win = Titanium.UI.createWindow({
 var lastTime = new Date().getTime();
  
 //get time offset
-var offset = 100;
+var offset = 50;
  
 //create filter (value between 0.5 and 1, where 1 is no filtering)
 var filter = 1.0;
@@ -44,7 +54,7 @@ var filter = 1.0;
 //last values
 var last_x = 0;
 var last_y = 0;
-
+var dot = $.dot;
 //sdasasd
 //get accelerometer data
 Titanium.Accelerometer.addEventListener('update',function(e)
@@ -59,13 +69,20 @@ Titanium.Accelerometer.addEventListener('update',function(e)
         last_x = e.x * filter + last_x * (1 - filter);
         last_y = e.y * filter + last_y * (1 - filter);
  
- 
+ 		$.xy.setText((last_x*5) + " - "+ (last_y*5));
         //move dot accordingly (5 times as accelerometer)
-        //dot.left -= (last_x*5);
-        //dot.top += (last_y*5);
+        dot.left =  dot.left.toString().split("dp")[0]  + (last_x*5) +"dp";
+        dot.top  = dot.top.toString().split("dp")[0] + (last_y*5) + "dp";
         console.log((last_x*5) + " " + (last_y*5));
         //store last update time
         lastTime = now;
+
+	
+        var pack ={g: (last_x*5) + "," + (last_y*5)};
+        
+     Ti.Stream.write(socket, Ti.createBuffer({
+            value: JSON.stringify(pack)
+     }), writeCallback);
     }
 });
  
@@ -77,19 +94,22 @@ if (Ti.Platform.osname == 'android'){
     });
 }
 
+
 // NodeACS deployed
 var test = 'raw';
-var uri = 'http://192.168.0.118:8000';  
+
 
 var socket = Ti.Network.Socket.createTCP({
-    host: '192.168.0.118', port: 5000,
+    host: '192.168.0.103', port: 1234,
     connected: function (e) {
         Ti.API.info('Socket opened!');
         Ti.Stream.pump(e.socket, readCallback, 1024, true);
-        Ti.Stream.write(socket, Ti.createBuffer({
-            value: 'GET http://blog.example.com/index.html HTTP/1.1\r\n\r\n'
-        }), writeCallback);
-    },
+        var pack ={g: (0) + "," + (0), c: "", value: ""};
+        
+     Ti.Stream.write(socket, Ti.createBuffer({
+            value: JSON.stringify(pack)
+     }), writeCallback);
+   },
         error: function (e) {
         Ti.API.info('Error (' + e.errorCode + '): ' + e.error);
     },

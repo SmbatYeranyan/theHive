@@ -6,6 +6,12 @@
 	height: Ti.UI.SIZE,
 	color: "white"
 } 
+"#xy": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "black",
+	top:"20dp"
+} 
 
 "#label2": {
 	width: Ti.UI.SIZE,
