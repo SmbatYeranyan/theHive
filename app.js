@@ -4,13 +4,13 @@ var engineControl = require("./lib/engineControl.js");
 
 
 directionParser.parser.on("backwards", function(value){
-  engineControl.engines.top1(value);
-  engineControl.engines.top2(value);
+/*  engineControl.engines.top1(value);
+  engineControl.engines.top2(value);*/
 });
 
 directionParser.parser.on("forward", function(value){
-  engineControl.engines.top1(value);
-  engineControl.engines.top2(value);
+/*  engineControl.engines.top1(value);
+  engineControl.engines.top2(value);*/
 });
 
 directionParser.parser.on("left", function(value){
