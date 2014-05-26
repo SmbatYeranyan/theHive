@@ -32,4 +32,4 @@ tcp.server.on("data", function(data){
 
 
 engineControl.engines.allEngines(0.01); 
-engineControl.engineControl.takeOff();
+engineControl.engines.takeOff();
