@@ -12,6 +12,7 @@ This project uses the Raspberry Pi board for a quad-copter proof of concept. **T
 * Wifi Module
 * Nrf24l01 *//Secondary wireless protocol*
 * Android Smartphone with Gyroscope *//Use the bare Phone to control Gyro Flight*
+* Shitloads of LED's
 
 **Software**
 
