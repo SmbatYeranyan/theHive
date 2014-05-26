@@ -65,5 +65,5 @@ The engine logic uses a class called ***engines()*** to perform all of the motor
 
 ### Design and Model: ###
 
-This model demonstrates the design and shape of the Hive using plain paper. The final result will be done in **Carbon**
+This model demonstrates the design and shape of the Hive using plain paper. The final result will be done using **Carbon**.
 ![alt tag](http://i.imgur.com/84H0V80.jpg?1)
