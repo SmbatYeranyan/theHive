@@ -1,0 +1,7 @@
+<Alloy>
+	<Window class="container">
+		<Button id="label" onClick="accel">Accelerate</Button>
+		<Button id="label2" onClick="deccel">Deccelerate</Button>
+		<View id="dot"></View>
+	</Window>
+</Alloy>
