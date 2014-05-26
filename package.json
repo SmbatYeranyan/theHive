@@ -8,7 +8,6 @@
   "dependencies": {
     "eventemitter": "*",
     "emit": "*",
-    "pi-blaster.js": "*",
-    "gpio": "*"
+    "pi-blaster.js": "*"
   }
 }
