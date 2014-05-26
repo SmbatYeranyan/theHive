@@ -24,8 +24,9 @@ tcp.server.on("data", function(data){
   directionParser.parser.parseGyro(data.g);
 
   if (data.c){
-    engineControl.engines.allEngines(data.c); 
+    engineControl.engines.allEngines(data.v); 
   }
+
 
 });
 
