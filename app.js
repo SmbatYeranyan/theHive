@@ -1,6 +1,7 @@
 var directionParser = require("./lib/directionParser.js");
 var tcp = require("./lib/tcpServer.js");
 var engineControl = require("./lib/engineControl.js"); 
+var ultraSonic = require("./lib/ultraSonic.js"); 
 
 
 directionParser.parser.on("backwards", function(value){
@@ -21,6 +22,11 @@ directionParser.parser.on("left", function(value){
 directionParser.parser.on("right", function(value){
   engineControl.engines.top1(value);
   engineControl.engines.bot1(value);
+});
+
+
+ultraSonic.sonic.on("sonarDistance", function(value){
+  console.log(value);
 });
 
 
