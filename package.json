@@ -8,6 +8,7 @@
   "dependencies": {
     "eventemitter": "*",
     "emit": "*",
-    "pi-blaster.js": "*"
+    "pi-blaster.js": "*",
+    "r-pi-usonic": "*"
   }
 }
