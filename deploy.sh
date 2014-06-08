@@ -1,6 +1,6 @@
-git add .
-git commit
+scp -r pi@192.168.0.103:/home/pi/zaku/theHive/lib ./lib
+scp pi@192.168.0.103:/home/pi/zaku/theHive/app.js app.js
 ssh -t pi@192.168.0.103 "
-	cd /home/pi/zaku/theHive/
-	git pull
+	killall -9 node
+	node /home/pi/zaku/theHive/app.js
 "
